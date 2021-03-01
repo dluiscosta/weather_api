@@ -9,7 +9,6 @@ api = Flask(__name__)
 
 @api.route('/weather/<city_name>', methods=['GET'])
 def get_weather(city_name):
-    # TODO: handle invalid city name
     weather = data.get_weather(city_name)
     return jsonify(weather)
 
