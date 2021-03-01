@@ -23,10 +23,10 @@ def handle_open_weather_city_not_found(e):
     return jsonify(payload), 404
 
 
-@api.errorhandler(open_weather.FetchError)
+@api.errorhandler(Exception)
 def handle_open_weather_fetch_error(e):
     payload = {
-        'message': 'Error while fetching data from the Open Weather API. '
+        'message': 'An internal error has occurred. '
                    'Please, contact the system administrator.',
         'cod': 500
     }
