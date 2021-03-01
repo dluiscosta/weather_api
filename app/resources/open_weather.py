@@ -25,9 +25,7 @@ def get_weather_from_city_name(city_name: str) -> dict:
     query_params = {'q': city_name, 'appid': API_KEY}
     response = requests.get(ENDPOINT, params=query_params)
     if response.status_code == 200:
-        response_dict = response.json()
-        weather = {k: v for k, v in response_dict.items() if k != 'cod'}
-        return weather
+        return response.json()
     elif response.status_code == 404:
         raise CityNotFound(city_name)
     else:
