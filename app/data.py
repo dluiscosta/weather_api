@@ -10,5 +10,5 @@ def get_weather(city_name: str) -> dict:
     return open_weather.get_weather_from_city_name(city_name)
 
 
-def get_latest_cached_weathers(max: int = None) -> List[dict]:
+def get_latest_cached_weathers(max: int = 5) -> List[dict]:
     raise NotImplementedError()
