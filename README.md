@@ -1,7 +1,7 @@
 # Cacheable Open Weather Api Wrapper
 
-This project consists in a code assessment challenge to wrap the public Open Weather API while caching it's returned data and exposing an endpoint to get a city's weather by it's name, as well as an endpoint to retrieve the latest cached city weathers.
-The cached data lasts for 5 minutes.
+This project consists in a code assessment challenge to wrap the public [Open Weather API](https://openweathermap.org/api) while caching it's returned data and exposing an endpoint to get a city's current weather by it's name, as well as an endpoint to retrieve the latest cached city weathers.
+The cached data lasts for a default of 5 minutes.
 
 ## How to run
 
