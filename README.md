@@ -7,9 +7,12 @@ The cached data lasts for a default of 5 minutes.
 
 To run this project, you will need [Docker](https://www.docker.com/) installed. Then, from the directory of the cloned repository, run one of the following commands:
 - ```docker-compose up -d```, for the development stage;
+- ```docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d```, for running the automated tests.
 - ```docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d```, for the production stage.
 
-The API will be exposed locally at the port 5000. Running in development mode automatically runs the tests, which can be rerun by using ```docker start pytest```.
+For the development and production stage, the API will be exposed locally at the port 5000. In order to achieve testing that represents best the production stage, the API and the automated tests use the same container. Because of that, they currently can't be run simultaneously.
+ 
+After running them once, the automated tests can be rerun by using ```docker start pytest```.
 
 ## Available endpoints
 
@@ -24,4 +27,4 @@ At the application, the endpoints are defined at the ```api.py``` module using [
 
 ![Sytem Architecture Chart](https://i.ibb.co/T2tdV30/weather-diagram-1.png)
 
-The automated tests run in a third, independent container, refering to the docker-compose service ```api-tests-service```. It uses the same image and configurations as ```api-service``` and, with [pytest](https://docs.pytest.org/en/stable/), is only run at the development stage.
+The automated tests, which use [pytest](https://docs.pytest.org/en/stable/), also run in the container referring to the docker-compose service ```api-service```, although not simultaneously with the full exposed API.

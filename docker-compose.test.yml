@@ -1,14 +1,11 @@
 version: '3.8'
 
 services:
-
+            
     api-service:
-        ports:
-            - '5000:5000'
+        container_name: pytest
+        command: pytest
         environment:
             FLASK_ENV: development
             FLASK_DEBUG: 1
-
-    db-service:
-        ports:
-            - '27017:27017'
+            MONGODB_DATABASE: test_cache
