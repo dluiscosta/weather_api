@@ -1,6 +1,8 @@
 import pytest
 from api import api
 from resources import open_weather
+from resources.mongo_db import WeatherCache
+
 
 VALID_CITY_NAME = 'New York'
 INVALID_CITY_NAME = 'Old York'
@@ -10,6 +12,9 @@ INVALID_CITY_NAME = 'Old York'
 def client():
     api.config['TESTING'] = True
     with api.test_client() as client:
+        WeatherCache._get_db().command("dropDatabase")
+        if hasattr(WeatherCache, '_weathers_collection'):
+            delattr(WeatherCache, '_weathers_collection')
         yield client
 
 
