@@ -90,3 +90,13 @@ def test_get_latest_cached_weathers(client):
     response_list = response.get_json()
     response_city_names = [weather['name'] for weather in response_list]
     assert(set(response_city_names) == set(VALID_CITIES_NAMES_LIST[-5:]))
+
+
+def test_invalid_endpoint(client):
+    """Asserts if a call to an invalid endpoint properly results in a
+    recognizable 404 response, allowing the user to correct the API call"""
+    response = client.get('invalid_enpoint')
+    assert response.status_code == 404
+    response_dict = response.get_json()
+    assert response_dict['cod'] == 404
+    assert 'message' in response_dict
