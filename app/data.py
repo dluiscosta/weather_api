@@ -1,5 +1,5 @@
-# data layer responsible for dynamically fetching data from the cache DB or
-# from the Open Weather API
+# part of the data layer, responsible for dynamically fetching data from the
+# cache DB or from the Open Weather API
 
 from resources import open_weather
 from resources.mongo_db import WeatherCache

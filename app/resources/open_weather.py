@@ -1,5 +1,4 @@
-# data layer responsible for connecting with the Open Weather API and fetching
-# valid data
+# part of the data layer, responsible for connecting with the Open Weather API
 
 import requests
 
@@ -21,6 +20,7 @@ class FetchError(Exception):
 
 
 def get_weather_from_city_name(city_name: str) -> dict:
+    """Fetch a city's weather, through it's name, from the Open Weather API"""
     query_params = {'q': city_name, 'appid': API_KEY}
     response = requests.get(ENDPOINT, params=query_params)
     if response.status_code == 200:
