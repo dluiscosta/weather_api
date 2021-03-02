@@ -7,6 +7,8 @@ from resources.mongo_db import WeatherCache
 
 VALID_CITY_NAME = 'New York'
 INVALID_CITY_NAME = 'Old York'
+VALID_CITIES_NAMES_LIST = [
+    'Paris', 'New York', 'London', 'Bangkok', 'Hong Kong', 'Dubai']
 
 
 @pytest.fixture
@@ -61,3 +63,16 @@ def test_get_weather_cache_expiration(client):
         raise e
     finally:
         WeatherCache.CACHE_EXPIRATION_TIME = weather_cache_expiration_time
+
+
+def test_get_latest_cached_weathers(client):
+    for city_name in VALID_CITIES_NAMES_LIST:
+        _ = client.get('weather/{}'.format(city_name))
+    response = client.get('weather?max=3')
+    response_list = response.get_json()
+    response_city_names = [weather['name'] for weather in response_list]
+    assert(set(response_city_names) == set(VALID_CITIES_NAMES_LIST[-3:]))
+    response = client.get('weather')
+    response_list = response.get_json()
+    response_city_names = [weather['name'] for weather in response_list]
+    assert(set(response_city_names) == set(VALID_CITIES_NAMES_LIST[-5:]))

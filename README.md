@@ -12,4 +12,4 @@ To run in development mode, which automatically runs the tests, use ```docker-co
 ## Available endpoints
 
 - ```/weather/<city_name>```: Get the weather data for the specified ```city_name```.  If available, cached data is used. Otherwise, new data is fetched from the Open Weather API and cached.
-- ```/weather?max=<max_number>``` (**NOT YET IMPLEMENTED**): Get the weather data for all the cached cities, up to the latest ```max_number``` entries (if specified).
+- ```/weather?max=<max_number>```: Get the weather data for all the cached cities, up to the latest ```max_number``` entries (if specified).
