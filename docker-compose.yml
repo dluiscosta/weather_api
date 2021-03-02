@@ -5,16 +5,15 @@ services:
     api-service:
         build: ./app/
         container_name: flask
+        command: python api.py
         volumes:
             - './app/:/app/'
         ports:
             - '5000:5000'
         environment:
             PORT: 5000
-            FLASK_ENV: development
             MONGODB_DATABASE: cache
             MONGODB_HOSTNAME: mongodb
-            FLASK_DEBUG: 1
         depends_on:
             - db-service
         networks:
@@ -31,8 +30,6 @@ services:
             MONDODB_LOG_DIR: /dev/null
         networks:
             - backend
-        ports:
-            - '27017:27017'
 
 networks:
     backend:
