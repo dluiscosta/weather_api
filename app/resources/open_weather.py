@@ -1,7 +1,8 @@
 # part of the data layer, responsible for connecting with the Open Weather API
 
-import requests
 import os
+
+import requests
 
 ENDPOINT = os.environ['OPEN_WEATHER_ENDPOINT']
 API_KEY = os.environ['OPEN_WEATHER_API_KEY']

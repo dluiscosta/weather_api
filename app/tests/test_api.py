@@ -1,9 +1,9 @@
-import pytest
 import time
+
+import pytest
 from api import api
 from resources import open_weather
 from resources.mongo_db import WeatherCache
-
 
 VALID_CITY_NAME = 'New York'
 INVALID_CITY_NAME = 'Old York'

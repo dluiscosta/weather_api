@@ -1,7 +1,8 @@
 # part of the data layer, reponsible for interacting with MongoDB
 
 import os
-from pymongo import MongoClient, DESCENDING
+
+from pymongo import DESCENDING, MongoClient
 
 
 class WeatherCache():

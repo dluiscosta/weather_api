@@ -1,9 +1,9 @@
-import os
-from flask import Flask, jsonify, request
-import werkzeug
-import data
 import logging
+import os
 
+import data
+import werkzeug
+from flask import Flask, jsonify, request
 
 api = Flask(__name__)
 

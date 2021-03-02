@@ -1,9 +1,10 @@
 # part of the data layer, responsible for dynamically fetching data from the
 # cache DB or from the Open Weather API
 
+from typing import List
+
 from resources import open_weather
 from resources.mongo_db import WeatherCache
-from typing import List
 
 
 def get_weather(city_name: str) -> dict:
