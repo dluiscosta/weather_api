@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from resources import open_weather
 import data
 import logging
@@ -12,6 +12,13 @@ api = Flask(__name__)
 def get_weather(city_name):
     weather = data.get_weather(city_name)
     return jsonify(weather)
+
+
+@api.route('/weather', methods=['GET'])
+def get_weathers():
+    max = request.args.get('max', default=5, type=int)
+    weathers = data.get_latest_cached_weathers(max)
+    return jsonify(weathers)
 
 
 @api.errorhandler(open_weather.CityNotFound)

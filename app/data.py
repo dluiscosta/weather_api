@@ -15,4 +15,4 @@ def get_weather(city_name: str) -> dict:
 
 
 def get_latest_cached_weathers(max: int = 5) -> List[dict]:
-    raise NotImplementedError()
+    return WeatherCache.read_latest_weathers(max)
