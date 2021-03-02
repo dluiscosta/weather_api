@@ -2,12 +2,16 @@
 # from the Open Weather API
 
 from resources import open_weather
+from resources.mongo_db import WeatherCache
 from typing import List
 
 
 def get_weather(city_name: str) -> dict:
-    # TODO: switch fetching between Open Weather API and cached DB
-    return open_weather.get_weather_from_city_name(city_name)
+    weather = WeatherCache.read_weather(city_name)
+    if not weather:
+        weather = open_weather.get_weather_from_city_name(city_name)
+        WeatherCache.update_or_insert_weather(weather)
+    return weather
 
 
 def get_latest_cached_weathers(max: int = 5) -> List[dict]:

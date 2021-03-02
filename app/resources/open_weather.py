@@ -2,7 +2,6 @@
 # valid data
 
 import requests
-import logging
 
 ENDPOINT = 'http://api.openweathermap.org/data/2.5/weather'
 API_KEY = '09d9c578d13c2303e83f7b7f94f12d3f'
@@ -29,8 +28,4 @@ def get_weather_from_city_name(city_name: str) -> dict:
     elif response.status_code == 404:
         raise CityNotFound(city_name)
     else:
-        content = [response.status_code, response.json()['message']]
-        logging.critical(
-            'Open Weather API fetch error ({}): {}.'.format(*content)
-        )
-        raise FetchError(*content)
+        raise FetchError(response.status_code, response.json()['message'])

@@ -1,12 +1,39 @@
 version: '3.8'
-services: 
+
+services:
+
     api-service:
         build: ./app/
-        volumes: 
-            - ./app/:/app/
-        ports: 
-            - 5000:5000
+        container_name: flask
+        command: python api.py
+        volumes:
+            - './app/:/app/'
+        ports:
+            - '5000:5000'
         environment:
             PORT: 5000
-            FLASK_ENV: development
-            FLASK_DEBUG: 1
+            MONGODB_DATABASE: cache
+            MONGODB_HOSTNAME: mongodb
+        depends_on:
+            - db-service
+        networks:
+            - backend
+
+    db-service:
+        image: mongo
+        container_name: mongodb
+        volumes:
+            - 'mongodbdata:/data/db'
+        environment:
+            MONGO_INITDB_DATABASE: cache
+            MONGODB_DATA_DIR: /data/db
+            MONDODB_LOG_DIR: /dev/null
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: bridge
+volumes:
+    mongodbdata:
+        driver: local

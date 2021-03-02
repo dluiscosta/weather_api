@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify
 from resources import open_weather
 import data
+import logging
 
 
 api = Flask(__name__)
@@ -24,6 +25,7 @@ def handle_open_weather_city_not_found(e):
 
 @api.errorhandler(Exception)
 def handle_open_weather_fetch_error(e):
+    logging.error(e)
     payload = {
         'message': 'An internal error has occurred. '
                    'Please, contact the system administrator.',

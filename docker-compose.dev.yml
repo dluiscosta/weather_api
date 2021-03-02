@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+    api-service:
+        environment:
+            FLASK_ENV: development
+            FLASK_DEBUG: 1
+
+    db-service:
+        ports:
+            - '27017:27017'
+            
+    api-tests-service:
+        build: ./app/
+        container_name: pytest
+        command: pytest
+        volumes:
+            - './app/:/app/'
+        environment:
+            FLASK_ENV: development
+            FLASK_DEBUG: 1
+            MONGODB_DATABASE: cache_test
+            MONGODB_HOSTNAME: mongodb
+        depends_on:
+            - db-service
+        networks:
+            - backend
