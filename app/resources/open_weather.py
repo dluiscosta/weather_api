@@ -2,7 +2,6 @@
 # valid data
 
 import requests
-import logging
 
 ENDPOINT = 'http://api.openweathermap.org/data/2.5/weather'
 API_KEY = '09d9c578d13c2303e83f7b7f94f12d3f'
