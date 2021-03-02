@@ -1,5 +1,6 @@
 import pytest
 from api import api
+from resources import open_weather
 
 VALID_CITY_NAME = 'New York'
 INVALID_CITY_NAME = 'Old York'
@@ -26,3 +27,18 @@ def test_invalid_get_weather(client):
     response_dict = response.get_json()
     assert response_dict['cod'] == 404
     assert 'message' in response_dict
+
+
+def test_get_weather_cacheability(client):
+    response1 = client.get('weather/{}'.format(VALID_CITY_NAME))
+    response1_dict = response1.get_json()
+    open_weather_endpoint = open_weather.ENDPOINT
+    open_weather.ENDPOINT = 'invalid endpoint'  # block Open Weather API use
+    try:
+        response2 = client.get('weather/{}'.format(VALID_CITY_NAME))
+        response2_dict = response2.get_json()
+        assert response1_dict == response2_dict
+    except Exception as e:
+        raise e
+    finally:
+        open_weather.ENDPOINT = open_weather_endpoint
