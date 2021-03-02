@@ -13,3 +13,13 @@ To run in development mode, which automatically runs the tests, use ```docker-co
 
 - ```/weather/<city_name>```: Get the weather data for the specified ```city_name```.  If available, cached data is used. Otherwise, new data is fetched from the Open Weather API and cached.
 - ```/weather?max=<max_number>```: Get the weather data for all the cached cities, up to the latest ```max_number``` entries (if specified).
+
+## System Architecture
+
+The system runs in two docker containers refering to the docker-compose services ```api-service```, which contains the application, and ```db-service```, which runs a [MongoDB](https://www.mongodb.com/) instance used for caching (automatically expiring with TTL).
+
+At the application, the endpoints are defined at the ```api.py``` module using [Flask](https://flask.palletsprojects.com/en/1.1.x/), which in turn connects with the ```data.py``` module. The ```data.py``` module handles where to retrieve from and save data to by interacting with the resources modules ```open_weather.py``` and ```mongo_db.py```.
+
+![Sytem Architecture Chart](https://i.ibb.co/T2tdV30/weather-diagram-1.png)
+
+The automated tests run in a third, independent container, refering to the docker-compose service ```api-tests-service```. It uses the same image and configurations as ```api-service``` and, with [pytest](https://docs.pytest.org/en/stable/), is only run at the development stage.
