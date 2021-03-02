@@ -1,6 +1,6 @@
 import os
 from flask import Flask, jsonify, request
-from resources import open_weather
+import werkzeug
 import data
 import logging
 
@@ -10,7 +10,12 @@ api = Flask(__name__)
 
 @api.route('/weather/<city_name>', methods=['GET'])
 def get_weather(city_name):
-    weather = data.get_weather(city_name)
+    try:
+        weather = data.get_weather(city_name)
+    except ValueError:
+        raise werkzeug.exceptions.NotFound(
+            '{} city not found.'.format(city_name)
+        )
     return jsonify(weather)
 
 
@@ -22,17 +27,18 @@ def get_weathers():
     return jsonify(weathers)
 
 
-@api.errorhandler(open_weather.CityNotFound)
-def handle_open_weather_city_not_found(e):
+@api.errorhandler(werkzeug.exceptions.HTTPException)
+def handle_http_exception(e):
+    status_code = e.get_response().status_code
     payload = {
-        'message': '{} city not found.'.format(e.searched_city_name),
-        'cod': 404
+        'message': e.description,
+        'cod': status_code
     }
-    return jsonify(payload), 404
+    return jsonify(payload), status_code
 
 
 @api.errorhandler(Exception)
-def handle_open_weather_fetch_error(e):
+def handle_generic_exception(e):
     logging.error(e)
     payload = {
         'message': 'An internal error has occurred. '
