@@ -1,9 +1,10 @@
 # part of the data layer, responsible for connecting with the Open Weather API
 
 import requests
+import os
 
-ENDPOINT = 'http://api.openweathermap.org/data/2.5/weather'
-API_KEY = '09d9c578d13c2303e83f7b7f94f12d3f'
+ENDPOINT = os.environ['OPEN_WEATHER_ENDPOINT']
+API_KEY = os.environ['OPEN_WEATHER_API_KEY']
 
 
 class CityNotFound(ValueError):

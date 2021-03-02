@@ -8,12 +8,16 @@ class WeatherCache():
     """Wrapps the weather collection from MongoDB and provide useful methods
     for the application to use it as a cache storage"""
 
-    CACHE_EXPIRATION_TIME = 300  # in seconds
+    # define time for cache expiration, in seconds
+    CACHE_EXPIRATION_TIME = int(
+        os.getenv('CACHED_WEATHERS_EXPIRATION_TIME', 300)
+    )
 
     @classmethod
     def _get_db(cls) -> None:
-        mongo_uri = 'mongodb://{}:27017'.format(
-            os.environ['MONGODB_HOSTNAME']
+        mongo_uri = 'mongodb://{}:{}'.format(
+            os.environ['MONGODB_HOSTNAME'],
+            os.environ['MONGODB_PORT'],
         )
         db_name = os.environ['MONGODB_DATABASE']
         return MongoClient(mongo_uri)[db_name]

@@ -16,7 +16,8 @@ def get_weather(city_name):
 
 @api.route('/weather', methods=['GET'])
 def get_weathers():
-    max = request.args.get('max', default=5, type=int)
+    DEFAULT_MAX = int(os.getenv('LATEST_WEATHERS_DEFAULT_MAX', 5))
+    max = request.args.get('max', default=DEFAULT_MAX, type=int)
     weathers = data.get_latest_cached_weathers(max)
     return jsonify(weathers)
 

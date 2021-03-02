@@ -22,6 +22,12 @@ services:
             FLASK_DEBUG: 1
             MONGODB_DATABASE: cache_test
             MONGODB_HOSTNAME: mongodb
+            MONGODB_PORT: 27017
+            LATEST_WEATHERS_DEFAULT_MAX: 5
+            CACHED_WEATHERS_EXPIRATION_TIME: 300
+            OPEN_WEATHER_ENDPOINT:
+                http://api.openweathermap.org/data/2.5/weather
+            OPEN_WEATHER_API_KEY: 09d9c578d13c2303e83f7b7f94f12d3f
         depends_on:
             - db-service
         networks:
