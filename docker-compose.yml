@@ -8,8 +8,6 @@ services:
         command: python api.py
         volumes:
             - './app/:/app/'
-        ports:
-            - '5000:5000'
         environment:
             PORT: 5000
             MONGODB_DATABASE: cache
@@ -20,8 +18,6 @@ services:
             OPEN_WEATHER_ENDPOINT:
                 http://api.openweathermap.org/data/2.5/weather
             OPEN_WEATHER_API_KEY: 09d9c578d13c2303e83f7b7f94f12d3f
-        depends_on:
-            - db-service
         networks:
             - backend
 
