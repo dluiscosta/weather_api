@@ -5,12 +5,12 @@ from pymongo import MongoClient, DESCENDING
 class WeatherCache():
 
     @classmethod
-    def init_db(cls, db_uri: str = None) -> None:
-        db_uri = 'mongodb://{}:27017/{}'.format(
-            os.environ['MONGODB_HOSTNAME'],
-            os.environ['MONGODB_DATABASE']
-        ) if not db_uri else db_uri
-        cls._weathers_collection = MongoClient(db_uri).cache.weathers
+    def init_db(cls) -> None:
+        mongo_uri = 'mongodb://{}:27017'.format(
+            os.environ['MONGODB_HOSTNAME']
+        )
+        db_name = os.environ['MONGODB_DATABASE']
+        cls._weathers_collection = MongoClient(mongo_uri)[db_name].weathers
         cls._weathers_collection.create_index('name')
         cls._weathers_collection.create_index([('timestamp', DESCENDING)])
 
