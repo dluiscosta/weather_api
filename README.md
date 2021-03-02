@@ -3,8 +3,6 @@
 This project consists in a code assessment challenge to wrap the public Open Weather API while caching it's returned data and exposing an endpoint to get a city's weather by it's name, as well as an endpoint to retrieve the latest cached city weathers.
 The cached data lasts for 5 minutes.
 
-**Caching is not yet implemented.**
-
 ## How to run
 
 To run this project, you will need [Docker](https://www.docker.com/) installed. Then, from the directory of the cloned repository, simply run ```docker-compose up```. The API will be exposed locally at the port 5000.
