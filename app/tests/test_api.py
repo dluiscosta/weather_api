@@ -1,4 +1,5 @@
 import pytest
+import time
 from api import api
 from resources import open_weather
 from resources.mongo_db import WeatherCache
@@ -47,3 +48,16 @@ def test_get_weather_cacheability(client):
         raise e
     finally:
         open_weather.ENDPOINT = open_weather_endpoint
+
+
+def test_get_weather_cache_expiration(client):
+    weather_cache_expiration_time = WeatherCache.CACHE_EXPIRATION_TIME
+    WeatherCache.CACHE_EXPIRATION_TIME = 5
+    try:
+        _ = client.get('weather/{}'.format(VALID_CITY_NAME))
+        time.sleep(65)  # MongoDB checks for expired documents every 60 secs
+        assert WeatherCache.read_weather(VALID_CITY_NAME) is None
+    except Exception as e:
+        raise e
+    finally:
+        WeatherCache.CACHE_EXPIRATION_TIME = weather_cache_expiration_time
