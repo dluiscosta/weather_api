@@ -14,6 +14,8 @@ For the development and production stage, the API will be exposed locally at the
  
 After running them once, the automated tests can be rerun by using ```docker start pytest```.
 
+*DISCLAIMER*: The automated tests currently are taking long to run due to the ```test_get_weather_cache_expiration``` test. Even though this test reduces the configured cache expiration time, it still needs to wait at least 60 seconds in order to reliably assert if a given saved cache expired, since that is the duration of the cycle in which MongoDB checks for documents with expired [TTL](https://docs.mongodb.com/manual/core/index-ttl/).
+
 ## Available endpoints
 
 - ```/weather/<city_name>```: Get the weather data for the specified ```city_name```.  If available, cached data is used. Otherwise, new data is fetched from the Open Weather API and cached.
@@ -27,4 +29,12 @@ At the application, the endpoints are defined at the ```api.py``` module using [
 
 ![Sytem Architecture Chart](https://i.ibb.co/T2tdV30/weather-diagram-1.png)
 
-The automated tests, which use [pytest](https://docs.pytest.org/en/stable/), also run in the container referring to the docker-compose service ```api-service```, although not simultaneously with the full exposed API.
+The automated tests, which use [pytest](https://docs.pytest.org/en/stable/), also run in the container referring to the docker-compose service ```api-service```, although not simultaneously with the full, exposed, API.
+
+## Options for Improvement
+
+- Use appropriate server at production stage instead of using Flask's built-in server, which is not suitable.
+- Stablish automated pipeline for testing and deploying in a host with public access.
+- Allow configuration of automatic testing upon container startup and provide an entrypoint to run them by demand and allow usage of pytest parameters.
+- Establish test dependency hierarchy, so that tests are not run unnecessarilly upon the verification of a failing dependency;
+- Reduce ```test_get_weather_cache_expiration``` execution time.
