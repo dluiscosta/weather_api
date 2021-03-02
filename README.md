@@ -6,11 +6,10 @@ The cached data lasts for a default of 5 minutes.
 ## How to run
 
 To run this project, you will need [Docker](https://www.docker.com/) installed. Then, from the directory of the cloned repository, run one of the following commands:
-- ```docker-compose up```, for the development stage;
-- ```docker-compose -f docker-compose.yml -f docker-compose.prod.yml up```, for the production stage.
-The API will be exposed locally at the port 5000.
+- ```docker-compose up -d```, for the development stage;
+- ```docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d```, for the production stage.
 
-To run in development mode, which automatically runs the tests, use ```docker-compose -f docker-compose.yml -f docker-compose.dev.yml up``` instead. The tests can be rerun by using ```docker start pytest```.
+The API will be exposed locally at the port 5000. Running in development mode automatically runs the tests, which can be rerun by using ```docker start pytest```.
 
 ## Available endpoints
 
