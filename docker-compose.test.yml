@@ -3,8 +3,11 @@ version: '3.8'
 services:
             
     api-service:
+        build:
+            args:
+                PIPENV_INSTALL_PARAMS: "--dev"
         container_name: pytest
-        command: pytest
+        command: pipenv run pytest
         environment:
             FLASK_ENV: development
             FLASK_DEBUG: 1

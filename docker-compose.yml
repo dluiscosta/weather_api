@@ -3,9 +3,11 @@ version: '3.8'
 services:
 
     api-service:
-        build: ./app/
+        build:
+            dockerfile: Dockerfile
+            context: .
         container_name: flask
-        command: python api.py
+        command: pipenv run python api.py
         volumes:
             - './app/:/app/'
         environment:
