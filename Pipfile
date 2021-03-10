@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "~=2.25"
+pymongo = "~=3.11"
+Flask = "~=1.1"
+Werkzeug = "~=1.0"
+
+[dev-packages]
+pytest = "~=6.2"
+flake8 = "~=3.8"
+
+[requires]
+python_version = "3.9"
