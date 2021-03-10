@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
     api-service:
-        build: ./app/
+        build: .
         container_name: flask
         command: python api.py
         volumes:
