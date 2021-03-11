@@ -1,30 +1,12 @@
 import logging
 import os
 
-import data
 import werkzeug
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
+from weather import weather_bp
 
 api = Flask(__name__)
-
-
-@api.route('/weather/<city_name>', methods=['GET'])
-def get_weather(city_name):
-    try:
-        weather = data.get_weather(city_name)
-    except ValueError:
-        raise werkzeug.exceptions.NotFound(
-            '{} city not found.'.format(city_name)
-        )
-    return jsonify(weather)
-
-
-@api.route('/weather', methods=['GET'])
-def get_weathers():
-    DEFAULT_MAX = int(os.getenv('LATEST_WEATHERS_DEFAULT_MAX', 5))
-    max = request.args.get('max', default=DEFAULT_MAX, type=int)
-    weathers = data.get_latest_cached_weathers(max)
-    return jsonify(weathers)
+api.register_blueprint(weather_bp, url_prefix='/weather')
 
 
 @api.errorhandler(werkzeug.exceptions.HTTPException)
