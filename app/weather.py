@@ -1,5 +1,3 @@
-# TODO: move to separete weather folder, as suggested by Flask's doc.
-
 import os
 
 import data
