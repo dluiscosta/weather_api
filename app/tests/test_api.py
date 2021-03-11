@@ -83,6 +83,7 @@ def test_get_latest_cached_weathers(client):
     for city_name in VALID_CITIES_NAMES_LIST:
         _ = client.get('weather/{}'.format(city_name))
     response = client.get('weather?max=3')
+    assert response.status_code == 200
     response_list = response.get_json()
     response_city_names = [weather['name'] for weather in response_list]
     assert(set(response_city_names) == set(VALID_CITIES_NAMES_LIST[-3:]))
