@@ -30,11 +30,3 @@ At the application, the endpoints are defined at the ```api.py``` module using [
 ![Sytem Architecture Chart](https://i.ibb.co/T2tdV30/weather-diagram-1.png)
 
 The automated tests, which use [pytest](https://docs.pytest.org/en/stable/), also run in the container referring to the docker-compose service ```api-service```, although not simultaneously with the full, exposed, API.
-
-## Options for Improvement
-
-- Use appropriate server at production stage instead of using Flask's built-in server, which is not suitable.
-- Stablish automated pipeline for testing and deploying in a host with public access.
-- Allow configuration of automatic testing upon container startup and provide an entrypoint to run them by demand and allow usage of pytest parameters.
-- Establish test dependency hierarchy, so that tests are not run unnecessarilly upon the verification of a failing dependency;
-- Reduce ```test_get_weather_cache_expiration``` execution time.
